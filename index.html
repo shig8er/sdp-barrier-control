@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#253fcd">
+  <meta name="description" content="Campus Access — secure remote controls for the SDP ESP32 barrier.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' wss://r19061f1.ala.asia-southeast1.emqxsl.com:8084; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Campus Access · SDP barrier control</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#controls">Skip to barrier controls</a>
+  <header class="masthead">
+    <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27V5h5v22M10 8h17v6H10M17 8v6m6-6v6"/></svg><span>Campus<br><strong>Access.</strong></span></div>
+    <p class="project">SDP PROJECT <span>Remote barrier control</span></p>
+    <div class="session-indicator"><span class="dot" id="header-dot"></span><span id="header-status">Not connected</span></div>
+  </header>
+  <nav class="navigation" aria-label="Main"><a href="#controls" aria-current="page">Barrier control</a><a href="#activity">Activity</a><a href="#connection">Connection</a><span>Gate 01 / ESP32</span></nav>
+  <main>
+    <section class="workspace" aria-labelledby="gate-heading">
+      <div class="control-area" id="controls">
+        <div class="heading-row"><h1 id="gate-heading">Gate 01<span class="heading-period">.</span></h1><span class="status-label" id="device-label">Device unconfirmed</span></div>
+        <p class="intro">A clear way in. A controlled way out.</p>
+        <p class="gate-description">Send an Open or Close command to your campus barrier, and follow its receipt from the website to the ESP32.</p>
+        <div class="actions">
+          <button class="command open-command" id="open" disabled><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg><span>Open barrier</span><small>Allow entry</small></button>
+          <button class="command close-command" id="close" disabled><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg><span>Close barrier</span><small>Secure access</small></button>
+        </div>
+        <div class="control-guidance"><span class="dot"></span><p id="control-guidance">Connect your MQTT account to enable controls.</p></div>
+        <p class="position-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg>Barrier position is not measured. An RF receipt confirms transmission, not physical movement.</p>
+      </div>
+      <aside class="connection-area" id="connection" aria-labelledby="connection-heading">
+        <div class="section-heading"><h2 id="connection-heading">Your connection</h2><span class="secure-label">TLS encrypted</span></div>
+        <dl class="connection-status"><div><dt>MQTT broker</dt><dd id="broker-status">Not connected</dd></div><div><dt>ESP32 device</dt><dd id="esp-status">Waiting for connection</dd></div><div><dt>Last heartbeat</dt><dd id="heartbeat">Not received</dd></div></dl>
+        <form id="connect-form">
+          <p class="form-intro">Sign in with your EMQX MQTT account.</p>
+          <label for="username">MQTT username</label><input id="username" name="username" autocomplete="username" placeholder="Your MQTT username" required>
+          <label for="password">MQTT password</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your MQTT password" required>
+          <button class="connect-button" id="connect-button" type="submit">Connect securely <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button>
+          <p class="privacy-note">This website does not save your password.</p>
+        </form>
+        <div id="connected-panel" hidden><p id="signed-in-as"></p><button class="secondary-button" id="disconnect" type="button">Disconnect</button></div>
+        <p class="form-error" id="connection-error" role="alert" hidden></p>
+        <details class="connection-details"><summary>Connection details</summary><dl><dt>Broker</dt><dd id="broker-address">Loading configuration…</dd><dt>Command topic</dt><dd id="command-topic"></dd><dt>Status topic</dt><dd id="status-topic"></dd></dl></details>
+      </aside>
+    </section>
+    <section class="receipt-section" aria-labelledby="receipt-heading">
+      <div class="section-heading"><h2 id="receipt-heading">Command receipt</h2><span class="receipt-status" id="receipt-status">No command sent</span></div>
+      <ol class="receipt-path"><li id="stage-website"><span class="stage-mark"></span><strong>Website</strong><small>Command requested</small></li><li id="stage-broker"><span class="stage-mark"></span><strong>MQTT broker</strong><small>Delivery accepted</small></li><li id="stage-device"><span class="stage-mark"></span><strong>ESP32</strong><small>Matching receipt</small></li><li id="stage-rf"><span class="stage-mark"></span><strong>RF transmission</strong><small>Signal sent to barrier</small></li></ol>
+      <p id="receipt-detail">Your next command’s delivery will appear here.</p>
+    </section>
+    <section class="activity-section" id="activity" aria-labelledby="activity-heading">
+      <div class="section-heading"><h2 id="activity-heading">Session activity</h2><span>Live events · this tab only</span></div>
+      <div id="activity-empty" class="empty-activity"><p>No activity yet.</p><span>Connection updates and command receipts appear here as they happen.</span></div>
+      <ol id="activity-list" class="activity-list" aria-label="Session events"></ol>
+    </section>
+    <div class="announcement sr-only" id="announcement" role="status" aria-live="polite"></div>
+  </main>
+  <footer><span>Campus Access <strong>/</strong> SDP Project</span><span>Website → Cloud MQTT → ESP32 → 433 MHz RF</span></footer>
+  <noscript>Enable JavaScript to connect to the MQTT broker and control the barrier.</noscript>
+</body>
+</html>

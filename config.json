@@ -1,0 +1,6 @@
+{
+  "brokerUrl": "wss://r19061f1.ala.asia-southeast1.emqxsl.com:8084/mqtt",
+  "commandTopic": "parking/barrier/command",
+  "statusTopic": "parking/barrier/status",
+  "deviceLabel": "Gate 01"
+}
