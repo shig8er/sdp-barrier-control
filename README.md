@@ -1,4 +1,4 @@
-# Campus Access
+# AIoT Parking
 
 Public SDP barrier control website. It connects directly to authenticated EMQX
 Cloud MQTT over secure WebSocket. The ESP32 connects to the same broker over
