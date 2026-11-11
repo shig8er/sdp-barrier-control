@@ -1,0 +1,262 @@
+{
+  "generatedAt": "2026-11-11T19:43:27.061159Z",
+  "dataSource": {
+    "kind": "sample",
+    "label": "SAMPLE data, not real counts",
+    "rows": 8760,
+    "from": "2025-11-11T23:00:00+04:00",
+    "to": "2026-11-11T22:00:00+04:00"
+  },
+  "model": {
+    "name": "Seasonal Moving Average, same hour over 8 weeks",
+    "k": 8,
+    "unit": "weeks",
+    "formula": "forecast(hour) = mean of the same hour of the week over the previous k weeks",
+    "evaluation": {
+      "testHours": 1344,
+      "validationHours": 1344,
+      "lowestTestMae": "seasonal",
+      "models": {
+        "sma": {
+          "label": "Moving Average, last 1 hours (SDP1 model)",
+          "k": 1,
+          "unit": "hours",
+          "validationMae": 5.128,
+          "testMae": 5.068,
+          "horizon": "1 hour ahead"
+        },
+        "seasonal": {
+          "label": "Seasonal Moving Average, same hour over 8 weeks",
+          "k": 8,
+          "unit": "weeks",
+          "validationMae": 3.927,
+          "testMae": 2.614,
+          "horizon": "1 day or more ahead"
+        },
+        "naiveHour": {
+          "label": "Baseline: same as the previous hour",
+          "k": null,
+          "unit": null,
+          "testMae": 5.068,
+          "horizon": "1 hour ahead"
+        },
+        "naiveWeek": {
+          "label": "Baseline: same hour last week",
+          "k": null,
+          "unit": null,
+          "testMae": 3.425,
+          "horizon": "1 day or more ahead"
+        }
+      }
+    }
+  },
+  "pricing": {
+    "theta": 0.6,
+    "capacityEntriesPerHour": 60,
+    "capacityNote": "Capacity proxy: the 99th-percentile hour in the data. Replace with the real capacity.",
+    "offPeakAed": [
+      2.0,
+      3.0
+    ],
+    "peakAed": [
+      7.0,
+      10.0
+    ],
+    "note": "Prices are model output. The project has no payment system and nothing is charged."
+  },
+  "calendarOverride": "Not applied yet. Exam and holiday weeks are in the data and appear as higher or lower counts, but no rule overrides the forecast for them.",
+  "forecast": [
+    {
+      "hour": "2026-11-11T23:00:00+04:00",
+      "predicted": 1.5,
+      "ratio": 0.025,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 2
+    },
+    {
+      "hour": "2026-11-12T00:00:00+04:00",
+      "predicted": 1.1,
+      "ratio": 0.019,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 3
+    },
+    {
+      "hour": "2026-11-12T01:00:00+04:00",
+      "predicted": 1.2,
+      "ratio": 0.021,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 3
+    },
+    {
+      "hour": "2026-11-12T02:00:00+04:00",
+      "predicted": 1.1,
+      "ratio": 0.019,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 1
+    },
+    {
+      "hour": "2026-11-12T03:00:00+04:00",
+      "predicted": 1.2,
+      "ratio": 0.021,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 0
+    },
+    {
+      "hour": "2026-11-12T04:00:00+04:00",
+      "predicted": 2.2,
+      "ratio": 0.037,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 1
+    },
+    {
+      "hour": "2026-11-12T05:00:00+04:00",
+      "predicted": 3.5,
+      "ratio": 0.058,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 3
+    },
+    {
+      "hour": "2026-11-12T06:00:00+04:00",
+      "predicted": 13.8,
+      "ratio": 0.229,
+      "tier": "off-peak",
+      "priceAed": 2.5,
+      "sameHourLastWeek": 15
+    },
+    {
+      "hour": "2026-11-12T07:00:00+04:00",
+      "predicted": 36.6,
+      "ratio": 0.61,
+      "tier": "peak",
+      "priceAed": 7.0,
+      "sameHourLastWeek": 32
+    },
+    {
+      "hour": "2026-11-12T08:00:00+04:00",
+      "predicted": 48.8,
+      "ratio": 0.812,
+      "tier": "peak",
+      "priceAed": 8.5,
+      "sameHourLastWeek": 62
+    },
+    {
+      "hour": "2026-11-12T09:00:00+04:00",
+      "predicted": 29.9,
+      "ratio": 0.498,
+      "tier": "off-peak",
+      "priceAed": 3.0,
+      "sameHourLastWeek": 22
+    },
+    {
+      "hour": "2026-11-12T10:00:00+04:00",
+      "predicted": 23.8,
+      "ratio": 0.396,
+      "tier": "off-peak",
+      "priceAed": 2.5,
+      "sameHourLastWeek": 24
+    },
+    {
+      "hour": "2026-11-12T11:00:00+04:00",
+      "predicted": 29.0,
+      "ratio": 0.483,
+      "tier": "off-peak",
+      "priceAed": 3.0,
+      "sameHourLastWeek": 42
+    },
+    {
+      "hour": "2026-11-12T12:00:00+04:00",
+      "predicted": 38.0,
+      "ratio": 0.633,
+      "tier": "peak",
+      "priceAed": 7.0,
+      "sameHourLastWeek": 40
+    },
+    {
+      "hour": "2026-11-12T13:00:00+04:00",
+      "predicted": 43.1,
+      "ratio": 0.719,
+      "tier": "peak",
+      "priceAed": 8.0,
+      "sameHourLastWeek": 46
+    },
+    {
+      "hour": "2026-11-12T14:00:00+04:00",
+      "predicted": 30.1,
+      "ratio": 0.502,
+      "tier": "off-peak",
+      "priceAed": 3.0,
+      "sameHourLastWeek": 36
+    },
+    {
+      "hour": "2026-11-12T15:00:00+04:00",
+      "predicted": 25.2,
+      "ratio": 0.421,
+      "tier": "off-peak",
+      "priceAed": 2.5,
+      "sameHourLastWeek": 19
+    },
+    {
+      "hour": "2026-11-12T16:00:00+04:00",
+      "predicted": 21.1,
+      "ratio": 0.352,
+      "tier": "off-peak",
+      "priceAed": 2.5,
+      "sameHourLastWeek": 25
+    },
+    {
+      "hour": "2026-11-12T17:00:00+04:00",
+      "predicted": 15.1,
+      "ratio": 0.252,
+      "tier": "off-peak",
+      "priceAed": 2.5,
+      "sameHourLastWeek": 8
+    },
+    {
+      "hour": "2026-11-12T18:00:00+04:00",
+      "predicted": 8.4,
+      "ratio": 0.14,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 8
+    },
+    {
+      "hour": "2026-11-12T19:00:00+04:00",
+      "predicted": 6.1,
+      "ratio": 0.102,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 10
+    },
+    {
+      "hour": "2026-11-12T20:00:00+04:00",
+      "predicted": 4.1,
+      "ratio": 0.069,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 6
+    },
+    {
+      "hour": "2026-11-12T21:00:00+04:00",
+      "predicted": 2.0,
+      "ratio": 0.033,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 4
+    },
+    {
+      "hour": "2026-11-12T22:00:00+04:00",
+      "predicted": 1.9,
+      "ratio": 0.031,
+      "tier": "off-peak",
+      "priceAed": 2.0,
+      "sameHourLastWeek": 2
+    }
+  ]
+}

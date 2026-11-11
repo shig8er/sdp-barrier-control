@@ -3,79 +3,212 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#1f3f66">
-  <meta name="description" content="AIoT Parking — secure remote controls for the SDP ESP32 barrier.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="AIoT Parking: sign in to open and close the Khalifa University senior design project barrier, see the demand forecast and prices, or rehearse it all in a labelled simulation.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' wss://r19061f1.ala.asia-southeast1.emqxsl.com:8084; object-src 'none'; base-uri 'self'; form-action 'none'">
-  <title>AIoT Parking · Barrier control</title>
+  <title>AIoT Parking · Gate 01</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="./fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./styles.css?v=2e470bab57b1">
-  <script type="module" src="./app.js?v=25a56f642dd6"></script>
+  <link rel="preload" href="./fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=b65a5b26c2d7">
+  <script type="module" src="./app.js?v=1510cfe4a0a5"></script>
 </head>
-<body>
+<body data-mode="live" data-pane="controls">
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V4m-7 7 7-7 7 7"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16m-7-7 7 7 7-7"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-controls" viewBox="0 0 24 24"><path d="M4 20V6m0 3h16M4 9l2-3m4 3 2-3m4 3 2-3"/><circle cx="4" cy="20" r="1"/></symbol>
+    <symbol id="i-demand" viewBox="0 0 24 24"><path d="M4 20V10m5 10V4m5 16v-7m5 7V8"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-assistant" viewBox="0 0 24 24"><path d="M5 5h14v10H10l-5 4V5Z"/><path d="M9 9h6m-6 3h3"/></symbol>
+    <symbol id="i-connection" viewBox="0 0 24 24"><path d="M9 3v4m6-4v4M7 7h10v4a5 5 0 0 1-10 0V7Zm5 9v5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-9.5v.5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 3l18 18M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 4-2.5m4.5-.4A10 10 0 0 1 19 13M2 9.5a15 15 0 0 1 4-2.7m4.6-1.5A15 15 0 0 1 22 9.5"/><path d="M12 20h.01"/></symbol>
+  </svg>
+
   <a class="skip-link" href="#controls">Skip to barrier controls</a>
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Workspace navigation">
-      <a class="brand" href="#controls" aria-label="AIoT Parking home"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 26V7h5v19M12 9h14v6H12m5-6v6m5-6v6"/></svg></span><span>AIoT<strong>Parking</strong></span></a>
-      <nav class="navigation" aria-label="Main">
-        <a href="#controls" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="nav-label-full">Barrier control</span><span class="nav-label-short">Controls</span></a>
-        <a href="#activity"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span>Activity</span></a>
-        <a href="#connection"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v4m6-4v4M7 7h10v4a5 5 0 0 1-10 0V7Zm5 9v5"/></svg><span>Connection</span></a>
-      </nav>
-      <div class="sidebar-project"><span class="project-symbol" aria-hidden="true">KU</span><p>Senior Design Project<span>Khalifa University</span></p></div>
-    </aside>
-    <div class="main-shell">
-      <header class="topbar"><p>Workspace <span aria-hidden="true">/</span> <strong>Gate 01</strong></p><div class="session-indicator"><span class="dot" id="header-dot"></span><span id="header-status">Not connected</span></div></header>
-      <main>
-        <div class="page-heading"><div><h1>Barrier control</h1><p>Your campus entry, within reach.</p></div><span class="workspace-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-6 9 6M5 10v9m7-9v9m7-9v9M3 20h18"/></svg>Campus access</span></div>
-        <section class="workspace" id="controls" aria-labelledby="gate-heading" data-connected="false">
-          <div class="gate-panel">
-            <header class="page-intro"><div class="heading-row"><h2 id="gate-heading">Gate 01</h2><span class="status-label" id="device-label">Device unconfirmed</span></div><p class="gate-description">ESP32 controller <span aria-hidden="true">·</span> 433 MHz RF</p></header>
-            <div class="control-area" role="group" aria-label="Barrier commands">
-              <div class="actions">
-                <button class="command open-command" id="open" disabled><span class="command-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-6 6 6-6 6 6"/></svg></span><span>Open barrier</span><small>Allow entry</small></button>
-                <button class="command close-command" id="close" disabled><span class="command-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></span><span>Close barrier</span><small>Secure access</small></button>
-              </div>
-              <div class="control-guidance"><span class="dot"></span><p id="control-guidance">Connect your MQTT account to enable controls.</p></div>
-              <a class="connection-shortcut" href="#connection">Connect account<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a>
-            </div>
-            <div class="position-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg><p><strong>Position unmeasured</strong><span>An RF receipt confirms transmission, not physical movement.</span></p></div>
-          </div>
-          <aside class="connection-area" id="connection" aria-labelledby="connection-heading">
-            <div class="section-heading"><h2 id="connection-heading">Connection</h2><span class="secure-label"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>TLS encrypted</span></div>
-            <form id="connect-form">
-              <p class="form-intro">Sign in with your EMQX MQTT account.</p>
-              <label for="username">MQTT username</label><input id="username" name="username" autocomplete="username" placeholder="Enter your username" required>
-              <label for="password">MQTT password</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-              <button class="connect-button" id="connect-button" type="submit">Connect securely <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button>
-              <p class="privacy-note">Your password stays in this session only.</p>
-            </form>
-            <div id="connected-panel" hidden><span class="connected-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span><p id="signed-in-as"></p><p class="connected-note">The broker connection is secure. Device readiness is checked separately below.</p><button class="secondary-button" id="disconnect" type="button">Disconnect</button></div>
-            <p class="form-error" id="connection-error" role="alert" hidden></p>
-            <dl class="connection-status"><div><dt>MQTT broker</dt><dd id="broker-status">Not connected</dd></div><div><dt>ESP32 device</dt><dd id="esp-status">Waiting for connection</dd></div><div><dt>Last heartbeat</dt><dd id="heartbeat">Not received</dd></div></dl>
-            <details class="connection-details"><summary>Connection details<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></summary><dl><dt>Broker</dt><dd id="broker-address">Loading configuration…</dd><dt>Command topic</dt><dd id="command-topic"></dd><dt>Status topic</dt><dd id="status-topic"></dd></dl></details>
-          </aside>
-        </section>
-        <section class="receipt-section" aria-labelledby="receipt-heading">
-          <div class="section-heading"><h2 id="receipt-heading">Command journey</h2><span id="receipt-status">No command sent</span></div>
-          <ol class="receipt-path">
-            <li id="stage-website"><span class="stage-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></span><div><strong>Website</strong><small>Command requested</small></div></li>
-            <li id="stage-broker"><span class="stage-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18a4 4 0 0 1-1-8 7 7 0 0 1 13-2 5 5 0 0 1 0 10H6Z"/></svg></span><div><strong>MQTT broker</strong><small>Delivery accepted</small></div></li>
-            <li id="stage-device"><span class="stage-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3m6-3v3m-6 12v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3"/></svg></span><div><strong>ESP32</strong><small>Matching receipt</small></div></li>
-            <li id="stage-rf"><span class="stage-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M7 7a7 7 0 0 0 0 10M17 7a7 7 0 0 1 0 10M4 4a11 11 0 0 0 0 16M20 4a11 11 0 0 1 0 16"/></svg></span><div><strong>RF transmission</strong><small>Signal sent to barrier</small></div></li>
-          </ol>
-          <p id="receipt-detail">Your next command’s delivery will appear here.</p>
-        </section>
-        <section class="activity-section" id="activity" aria-labelledby="activity-heading">
-          <div class="section-heading"><h2 id="activity-heading">Session activity</h2><span>This tab only</span></div>
-          <div id="activity-empty" class="empty-activity"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><div><p>A fresh start.</p><span>Connection updates and command receipts will appear here.</span></div></div>
-          <ol id="activity-list" class="activity-list" aria-label="Session events"></ol>
-        </section>
-        <div class="announcement sr-only" id="announcement" role="status" aria-live="polite"></div>
-      </main>
-      <footer><span>AIoT Parking <span aria-hidden="true">/</span> SDP Project</span><p>Website <span aria-hidden="true">→</span> Cloud MQTT <span aria-hidden="true">→</span> ESP32 <span aria-hidden="true">→</span> 433 MHz RF</p></footer>
-      <noscript>Enable JavaScript to connect to the MQTT broker and control the barrier.</noscript>
+
+  <header class="top">
+    <a class="brand" href="#controls" data-pane="controls" aria-label="AIoT Parking, barrier controls">AIoT Parking</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#controls" data-pane="controls" aria-current="page"><svg aria-hidden="true"><use href="#i-controls"/></svg><span>Controls</span></a>
+      <a href="#demand" data-pane="demand"><svg aria-hidden="true"><use href="#i-demand"/></svg><span>Demand</span></a>
+      <a href="#activity" data-pane="activity"><svg aria-hidden="true"><use href="#i-activity"/></svg><span>Activity</span></a>
+      <a href="#assistant" data-pane="assistant"><svg aria-hidden="true"><use href="#i-assistant"/></svg><span>Assistant</span></a>
+      <a href="#connection" data-pane="connection"><svg aria-hidden="true"><use href="#i-connection"/></svg><span>Connection</span></a>
+    </nav>
+    <div class="mode" role="group" aria-label="Data source">
+      <button type="button" id="mode-live" aria-pressed="true">Live</button>
+      <button type="button" id="mode-simulation" aria-pressed="false">Simulation</button>
     </div>
-  </div>
+  </header>
+
+  <p class="modebar" id="mode-label">Live: not connected</p>
+
+  <main>
+    <p class="notice" id="offline-notice" role="status" hidden><svg aria-hidden="true"><use href="#i-offline"/></svg><span>This browser is offline. Live commands are paused until the internet connection returns.</span></p>
+
+    <div class="col col-main">
+      <section class="gate pane-controls" id="controls" aria-labelledby="gate-heading">
+        <h1 id="gate-heading">Gate 01</h1>
+        <p class="status" id="device-chip" data-state="unknown"><span class="status-dot" aria-hidden="true"></span><span id="device-chip-text">Not connected</span></p>
+        <p class="gate-sub">ESP32 controller, 433 MHz transmitter</p>
+        <div class="plates" role="group" aria-label="Barrier commands">
+          <button type="button" class="plate plate-open" id="open" disabled>
+            <svg aria-hidden="true"><use href="#i-up"/></svg>
+            <span class="plate-name">Open barrier</span>
+            <span class="plate-note" id="open-note">Sends OPEN to the ESP32</span>
+          </button>
+          <button type="button" class="plate plate-close" id="close" disabled>
+            <svg aria-hidden="true"><use href="#i-down"/></svg>
+            <span class="plate-name">Close barrier</span>
+            <span class="plate-note" id="close-note">Sends CLOSE to the ESP32</span>
+          </button>
+        </div>
+        <p class="guidance" id="guidance" role="status">Sign in to enable the controls.</p>
+        <p class="gate-note" id="gate-note" role="alert" hidden></p>
+        <a class="shortcut" id="shortcut-connect" href="#connection" data-pane="connection">Sign in to connect<svg aria-hidden="true"><use href="#i-next"/></svg></a>
+        <button type="button" class="shortcut" id="shortcut-simulate" hidden>Start simulation<svg aria-hidden="true"><use href="#i-next"/></svg></button>
+        <p class="position"><svg aria-hidden="true"><use href="#i-info"/></svg><span><strong>Barrier position is not measured.</strong> No sensor is fitted. A receipt proves the radio signal was sent, never that the barrier moved.</span></p>
+      </section>
+
+      <section class="block run pane-controls" id="run" aria-labelledby="run-heading">
+        <header class="block-head"><h2 id="run-heading">Command run</h2><span class="run-status" id="run-status">No command yet</span></header>
+        <ol class="steps" id="segments">
+          <li data-stage="website"><span class="step-dot" aria-hidden="true"></span><strong>Website</strong><small>No command yet</small></li>
+          <li data-stage="broker"><span class="step-dot" aria-hidden="true"></span><strong>MQTT broker</strong><small>Not yet reported</small></li>
+          <li data-stage="device"><span class="step-dot" aria-hidden="true"></span><strong>ESP32</strong><small>Not yet reported</small></li>
+          <li data-stage="rf"><span class="step-dot" aria-hidden="true"></span><strong>RF transmission</strong><small>Not yet reported</small></li>
+        </ol>
+        <p class="run-detail" id="run-detail">Send a command to follow it from this page to the radio.</p>
+      </section>
+
+      <section class="block demand pane-demand" id="demand" aria-labelledby="demand-heading">
+        <header class="block-head"><h2 id="demand-heading">Demand and pricing</h2><span class="scope" id="demand-scope">Loading forecast</span></header>
+        <p class="data-banner" id="demand-banner" hidden></p>
+        <div id="demand-body" hidden>
+          <div class="price-now" aria-live="polite">
+            <p class="price-figure"><span id="price-value">0</span><span class="price-unit">AED</span></p>
+            <p class="price-text"><strong id="price-tier">Off-peak</strong><span id="price-detail"></span></p>
+          </div>
+          <figure class="chart">
+            <svg id="demand-chart" role="img" aria-label="Forecast entries for the next 24 hours" preserveAspectRatio="none"></svg>
+            <div class="chart-axis" id="demand-axis" aria-hidden="true"></div>
+            <figcaption id="chart-caption">Next 24 hours. Solid bars are peak hours; outlined bars are off-peak. The dashed line is the peak threshold.</figcaption>
+          </figure>
+          <h3 id="accuracy-heading">How accurate is it?</h3>
+          <table class="accuracy" aria-labelledby="accuracy-heading">
+            <thead><tr><th scope="col">Method</th><th scope="col">Typical error (entries per hour)</th></tr></thead>
+            <tbody id="accuracy-rows"></tbody>
+          </table>
+          <p class="fine" id="accuracy-note"></p>
+          <ul class="fine-list" id="demand-notes"></ul>
+        </div>
+        <p class="form-error" id="demand-error" role="alert" hidden></p>
+      </section>
+    </div>
+
+    <div class="col col-side">
+      <section class="block connection pane-connection" id="connection" aria-labelledby="connection-heading">
+        <header class="block-head"><h2 id="connection-heading">Connection</h2><span class="tag" id="link-tag"><svg aria-hidden="true"><use href="#i-lock"/></svg><span id="link-tag-text">TLS encrypted</span></span></header>
+
+        <dl class="facts">
+          <div><dt>Broker</dt><dd id="fact-broker">Not connected</dd></div>
+          <div><dt>ESP32 device</dt><dd id="fact-device">Unknown</dd></div>
+          <div><dt>Heartbeat</dt><dd id="fact-heartbeat">None received</dd></div>
+          <div><dt>Last RF receipt</dt><dd id="fact-receipt">None yet</dd></div>
+          <div><dt>Barrier position</dt><dd>Not measured</dd></div>
+        </dl>
+        <div class="meter" id="heartbeat-meter" role="img" aria-label="No heartbeat received"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="meter-note">Heartbeat age: each block is five seconds. Controls lock when all nine are spent.</p>
+        <div class="check">
+          <button class="secondary" id="check-device" type="button" disabled>Check ESP32 now</button>
+          <p class="hint" id="check-note" role="status"></p>
+        </div>
+
+        <div id="live-panel">
+          <form id="connect-form" novalidate>
+            <p class="lead">Sign in with the EMQX MQTT account.</p>
+            <label for="username">MQTT username</label>
+            <input id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+            <label for="password">MQTT password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+            <p class="form-error" id="connection-error" role="alert" hidden></p>
+            <button class="primary" id="connect-button" type="submit"><span id="connect-label">Connect securely</span><svg aria-hidden="true"><use href="#i-next"/></svg></button>
+            <p class="hint">The password is used for this session and never saved.</p>
+          </form>
+          <div class="signed-in" id="connected-panel" hidden>
+            <p id="signed-in-as"></p>
+            <button class="secondary" id="disconnect" type="button">Disconnect</button>
+          </div>
+        </div>
+
+        <div id="simulation-panel" hidden>
+          <p class="lead">A simulated broker and ESP32 run inside this tab. Nothing is sent to the real broker or the radio.</p>
+          <div class="row">
+            <button class="primary" id="simulation-start" type="button"><span>Start simulation</span><svg aria-hidden="true"><use href="#i-next"/></svg></button>
+            <button class="secondary" id="simulation-stop" type="button" hidden>Stop simulation</button>
+          </div>
+          <fieldset class="scenarios">
+            <legend>How the simulated ESP32 replies</legend>
+            <div id="scenario-list"></div>
+            <p class="hint" id="scenario-detail"></p>
+          </fieldset>
+          <div class="faults" role="group" aria-label="Simulated faults">
+            <button class="secondary" id="simulation-power" type="button">Power off ESP32</button>
+            <button class="secondary" id="simulation-silence" type="button">Silence heartbeat</button>
+            <button class="secondary" id="simulation-drop" type="button">Drop broker link</button>
+          </div>
+          <button class="text-button" id="simulation-reset" type="button">Reset simulation and clear its history</button>
+        </div>
+
+        <details class="details" id="connection-details">
+          <summary>Connection details</summary>
+          <dl><dt>Broker</dt><dd id="detail-broker">Loading</dd><dt>Command topic</dt><dd id="detail-command"></dd><dt>Status topic</dt><dd id="detail-status"></dd></dl>
+        </details>
+      </section>
+
+      <section class="block assistant pane-assistant" id="assistant" aria-labelledby="assistant-heading">
+        <header class="block-head"><h2 id="assistant-heading">Assistant</h2><span class="scope" id="assistant-source">Built-in summary</span></header>
+        <p class="lead">Explains the status and history shown on this page. It cannot send commands or tell you where the barrier is.</p>
+        <div class="suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" class="suggestion">What is the current status?</button>
+          <button type="button" class="suggestion">Summarize recent commands</button>
+          <button type="button" class="suggestion">Why can’t I send a command?</button>
+        </div>
+        <form id="assistant-form" novalidate>
+          <label for="question">Ask about status or activity</label>
+          <div class="ask">
+            <input id="question" name="question" maxlength="300" autocomplete="off" enterkeyhint="send">
+            <button class="primary" id="ask-button" type="submit">Ask</button>
+          </div>
+          <p class="form-error" id="assistant-error" role="alert" hidden></p>
+        </form>
+        <ol class="thread" id="assistant-thread" aria-live="polite" aria-label="Answers"></ol>
+      </section>
+    </div>
+
+    <section class="block activity pane-activity" id="activity" aria-labelledby="activity-heading">
+      <header class="block-head"><h2 id="activity-heading">Activity</h2><span class="scope" id="activity-scope">Saved in this browser</span></header>
+      <div class="empty" id="activity-empty">
+        <p><strong>No activity recorded yet.</strong> Connections, commands and receipts are kept here, in this browser only.</p>
+      </div>
+      <div id="activity-body" hidden>
+        <h3 id="commands-heading">Commands</h3>
+        <ol class="ledger" id="command-list" aria-labelledby="commands-heading"></ol>
+        <h3 id="log-heading">Log</h3>
+        <ol class="log" id="event-list" aria-labelledby="log-heading"></ol>
+        <button class="text-button" id="clear-history" type="button">Clear this history</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>AIoT Parking, a Khalifa University senior design project.</p>
+    <p>Command path: website, cloud MQTT, ESP32, 433 MHz radio.</p>
+  </footer>
+  <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+  <noscript><p class="notice">Enable JavaScript to connect to the broker or run the simulation.</p></noscript>
 </body>
 </html>

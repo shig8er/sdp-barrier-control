@@ -6,8 +6,10 @@ MQTT TLS. The website requires the operator’s MQTT login; no credentials are
 embedded in these files.
 
 The ESP32 must remain powered and connected to its configured 2.4 GHz Wi-Fi.
-RF receipts confirm transmission, not physical position. Session activity is
-held in the current tab only. Fonts and their licenses are self-hosted.
+RF receipts confirm transmission, not physical position. Activity history is
+kept in the visitor's own browser. A labelled simulation mode runs entirely in
+the browser tab and cannot reach the broker. Fonts and their licenses are
+self-hosted.
 
 This repository contains deployed static assets only. Private device
 configuration and other project files are kept in the separate private project.
